@@ -1,33 +1,33 @@
 package config
 
-type Config struct {
-	ServerHost string `viper:"DRIFTHOOK_SERVER_HOST"`
-	ServerPort int    `viper:"DRIFTHOOK_SERVER_PORT"`
+type Configuration struct {
+	ServerHost string `mapstructure:"DRIFTHOOK_SERVER_HOST"`
+	ServerPort uint   `mapstructure:"DRIFTHOOK_SERVER_PORT"`
 
-	DatabaseHost     string `viper:"DRIFTHOOK_DATABASE_HOST"`
-	DatabasePort     int    `viper:"DRIFTHOOK_DATABASE_PORT"`
-	DatabaseUsername string `viper:"DRIFTHOOK_DATABASE_USERNAME"`
-	DatabasePassword string `viper:"DRIFTHOOK_DATABASE_PASSWORD"`
-	DatabaseName     string `viper:"DRIFTHOOK_DATABASE_NAME"`
-	DatabaseOptions  string `viper:"DRIFTHOOK_DATABASE_OPTIONS"`
+	PostgresHost         string `mapstructure:"DRIFTHOOK_POSTGRES_HOST"`
+	PostgresPort         uint   `mapstructure:"DRIFTHOOK_POSTGRES_PORT"`
+	PostgresUserUsername string `mapstructure:"DRIFTHOOK_POSTGRES_USER_USERNAME"`
+	PostgresUserPassword string `mapstructure:"DRIFTHOOK_POSTGRES_USER_PASSWORD"`
+	PostgresDatabaseName string `mapstructure:"DRIFTHOOK_POSTGRES_DATABASE_NAME"`
+	PostgresOptions      string `mapstructure:"DRIFTHOOK_POSTGRES_OPTIONS"`
 
-	QueueUrls     []string `viper:"DRIFTHOOK_QUEUE_URLS"`
-	QueueUsername string   `viper:"DRIFTHOOK_QUEUE_USERNAME"`
-	QueuePassword string   `viper:"DRIFTHOOK_QUEUE_PASSWORD"`
+	NATSUrl      string `mapstructure:"DRIFTHOOK_NATS_URL"`
+	NATSUsername string `mapstructure:"DRIFTHOOK_NATS_USERNAME"`
+	NATSPassword string `mapstructure:"DRIFTHOOK_NATS_PASSWORD"`
 }
 
-var DefaultConfig = Config{
+var DefaultConfiguration = Configuration{
 	ServerHost: "localhost",
 	ServerPort: 8080,
 
-	DatabaseHost:     "localhost",
-	DatabasePort:     5432,
-	DatabaseUsername: "postgres",
-	DatabasePassword: "postgres",
-	DatabaseName:     "drifthook",
-	DatabaseOptions:  "",
+	PostgresHost:         "localhost",
+	PostgresPort:         5432,
+	PostgresUserUsername: "postgres",
+	PostgresUserPassword: "postgres",
+	PostgresDatabaseName: "drifthook",
+	PostgresOptions:      "",
 
-	QueueUrls:     []string{"nats://localhost:4222"},
-	QueueUsername: "",
-	QueuePassword: "",
+	NATSUrl:      "nats://localhost:4222",
+	NATSUsername: "",
+	NATSPassword: "",
 }
