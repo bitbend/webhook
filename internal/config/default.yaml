@@ -11,7 +11,7 @@ database:
     user:
       username: "postgres"
       password: "password"
-    database_name: "drifthook"
+    database: "drifthook"
     options: "sslmode=disable"
     max_open_connection: 15
     max_idle_connection: 12
@@ -27,7 +27,7 @@ storage:
   s3:
     access_key: ""
     secret_key: ""
-    bucket_name: ""
+    bucket: ""
     path_prefix: ""
     region: "us-east-1"
     force_path_style: false
