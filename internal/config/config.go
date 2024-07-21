@@ -27,7 +27,7 @@ type PostgresConfiguration struct {
 	Host              string                    `mapstructure:"host"`
 	Port              uint                      `mapstructure:"port"`
 	User              PostgresUserConfiguration `mapstructure:"user"`
-	DatabaseName      string                    `mapstructure:"database_name"`
+	Database          string                    `mapstructure:"database"`
 	Options           string                    `mapstructure:"options"`
 	MaxOpenConnection uint                      `mapstructure:"max_open_connection"`
 	MaxIdleConnection uint                      `mapstructure:"max_idle_connection"`
@@ -50,7 +50,7 @@ type QueueConfiguration struct {
 type S3Configuration struct {
 	AccessKey      string `mapstructure:"access_key"`
 	SecretKey      string `mapstructure:"secret_key"`
-	BucketName     string `mapstructure:"bucket_name"`
+	Bucket         string `mapstructure:"bucket"`
 	PathPrefix     string `mapstructure:"path_prefix"`
 	Region         string `mapstructure:"region"`
 	ForcePathStyle bool   `mapstructure:"force_path_style"`
@@ -85,7 +85,8 @@ func LoadConfig(path string, name string) (*Configuration, error) {
 	}
 
 	if err := viper.MergeInConfig(); err != nil {
-		if errors.Is(err, viper.ConfigFileNotFoundError{}) {
+		var configFileNotFoundError viper.ConfigFileNotFoundError
+		if errors.As(err, &configFileNotFoundError) {
 			log.Printf("%s.yaml config file not found at %s", name, path)
 		} else {
 			log.Fatalf("failed to merge config: %v", err)
