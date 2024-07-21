@@ -1,10 +1,21 @@
 package config
 
+import (
+	"bytes"
+	_ "embed"
+	"errors"
+	"github.com/spf13/viper"
+	"log"
+	"strings"
+)
+
+const ConfigurationPrefix = "DRIFTHOOK"
+
 type ServerConfiguration struct {
-	Host string `mapstructure:"host"`
-	Port uint   `mapstructure:"port"`
-	SSL  bool   `mapstructure:"ssl"`
-	Env  string `mapstructure:"env"`
+	Host        string `mapstructure:"host"`
+	Port        uint   `mapstructure:"port"`
+	SSL         bool   `mapstructure:"ssl"`
+	Environment string `mapstructure:"environment"`
 }
 
 type PostgresUserConfiguration struct {
@@ -57,33 +68,28 @@ type Configuration struct {
 	Storage  StorageConfiguration  `mapstructure:"storage"`
 }
 
-var DefaultConfiguration = Configuration{
-	Server: ServerConfiguration{
-		Host: "localhost",
-		Port: 8100,
-		Env:  "dev",
-	},
+//go:embed default.yaml
+var defaultConfiguration []byte
 
-	Database: DatabaseConfiguration{
-		Postgres: PostgresConfiguration{
-			Host: "localhost",
-			Port: 5432,
-			User: PostgresUserConfiguration{
-				Username: "postgres",
-				Password: "postgres",
-			},
-			DatabaseName:      "drifthook",
-			Options:           "sslmode=disable",
-			MaxOpenConnection: 15,
-			MaxIdleConnection: 12,
-		},
-	},
+func LoadConfig(path string, name string) (*Configuration, error) {
+	viper.SetConfigType("yaml")
+	viper.SetConfigName(name)
+	viper.AddConfigPath(path)
 
-	Queue: QueueConfiguration{
-		NATS: NATSConfiguration{
-			Urls:     []string{"nats://localhost:4222"},
-			Username: "nats",
-			Password: "nats",
-		},
-	},
+	viper.AutomaticEnv()
+	viper.SetEnvPrefix(ConfigurationPrefix)
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+
+	if err := viper.ReadConfig(bytes.NewBuffer(defaultConfiguration)); err != nil {
+		if errors.Is(err, viper.ConfigFileNotFoundError{}) {
+			log.Printf("Faling back to default config")
+		}
+	}
+
+	var configuration Configuration
+	if err := viper.Unmarshal(&configuration); err != nil {
+		log.Fatalf("Error unmarshalling config: %v", err)
+	}
+
+	return &configuration, nil
 }
