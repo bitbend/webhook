@@ -85,7 +85,8 @@ func LoadConfig(path string, name string) (*Configuration, error) {
 	}
 
 	if err := viper.MergeInConfig(); err != nil {
-		if errors.Is(err, viper.ConfigFileNotFoundError{}) {
+		var configFileNotFoundError viper.ConfigFileNotFoundError
+		if errors.As(err, &configFileNotFoundError) {
 			log.Printf("%s.yaml config file not found at %s", name, path)
 		} else {
 			log.Fatalf("failed to merge config: %v", err)
