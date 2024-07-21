@@ -81,14 +81,20 @@ func LoadConfig(path string, name string) (*Configuration, error) {
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	if err := viper.ReadConfig(bytes.NewBuffer(defaultConfiguration)); err != nil {
+		log.Fatalf("failed to load default config: %v", err)
+	}
+
+	if err := viper.MergeInConfig(); err != nil {
 		if errors.Is(err, viper.ConfigFileNotFoundError{}) {
-			log.Printf("Faling back to default config")
+			log.Printf("%s.yaml config file not found at %s", name, path)
+		} else {
+			log.Fatalf("failed to merge config: %v", err)
 		}
 	}
 
 	var configuration Configuration
 	if err := viper.Unmarshal(&configuration); err != nil {
-		log.Fatalf("Error unmarshalling config: %v", err)
+		log.Fatalf("failed to unmarshall configuration: %v", err)
 	}
 
 	return &configuration, nil
