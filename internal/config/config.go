@@ -12,10 +12,10 @@ import (
 const ConfigurationPrefix = "DRIFTHOOK"
 
 type ServerConfiguration struct {
-	Host        string `mapstructure:"host"`
-	Port        uint   `mapstructure:"port"`
-	SSL         bool   `mapstructure:"ssl"`
-	Environment string `mapstructure:"environment"`
+	Host string `mapstructure:"host"`
+	Port uint   `mapstructure:"port"`
+	SSL  bool   `mapstructure:"ssl"`
+	Env  string `mapstructure:"env"`
 }
 
 type PostgresUserConfiguration struct {
