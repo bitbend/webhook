@@ -18,23 +18,34 @@ type ServerConfiguration struct {
 	Env  string `mapstructure:"env"`
 }
 
-type PostgresUserConfiguration struct {
+type UserConfiguration struct {
 	Username string `mapstructure:"username"`
 	Password string `mapstructure:"password"`
 }
 
 type PostgresConfiguration struct {
-	Host              string                    `mapstructure:"host"`
-	Port              uint                      `mapstructure:"port"`
-	User              PostgresUserConfiguration `mapstructure:"user"`
-	Database          string                    `mapstructure:"database"`
-	Options           string                    `mapstructure:"options"`
-	MaxOpenConnection uint                      `mapstructure:"max_open_connection"`
-	MaxIdleConnection uint                      `mapstructure:"max_idle_connection"`
+	Host              string            `mapstructure:"host"`
+	Port              uint              `mapstructure:"port"`
+	User              UserConfiguration `mapstructure:"user"`
+	Database          string            `mapstructure:"database"`
+	Options           string            `mapstructure:"options"`
+	MaxOpenConnection uint              `mapstructure:"max_open_connection"`
+	MaxIdleConnection uint              `mapstructure:"max_idle_connection"`
+}
+
+type YugabyteConfiguration struct {
+	Host              string            `mapstructure:"host"`
+	Port              uint              `mapstructure:"port"`
+	User              UserConfiguration `mapstructure:"user"`
+	Database          string            `mapstructure:"database"`
+	Options           string            `mapstructure:"options"`
+	MaxOpenConnection uint              `mapstructure:"max_open_connection"`
+	MaxIdleConnection uint              `mapstructure:"max_idle_connection"`
 }
 
 type DatabaseConfiguration struct {
 	Postgres PostgresConfiguration `mapstructure:"postgres"`
+	Yugabyte YugabyteConfiguration `mapstructure:"yugabyte"`
 }
 
 type NATSConfiguration struct {
