@@ -43,6 +43,12 @@ type YugabyteConfiguration struct {
 	MaxIdleConnection uint              `mapstructure:"max_idle_connection"`
 }
 
+type RedisConfiguration struct {
+	Url      string `mapstructure:"url"`
+	Database string `mapstructure:"database"`
+	Password string `mapstructure:"password"`
+}
+
 type NATSConfiguration struct {
 	Urls     []string `mapstructure:"urls"`
 	Username string   `mapstructure:"username"`
@@ -59,12 +65,29 @@ type S3Configuration struct {
 	DisableSSL     bool   `mapstructure:"disable_ssl"`
 }
 
-type Configuration struct {
-	Server   ServerConfiguration   `mapstructure:"server"`
+type DatabaseConfigurations struct {
 	Postgres PostgresConfiguration `mapstructure:"postgres"`
 	Yugabyte YugabyteConfiguration `mapstructure:"yugabyte"`
-	NATS     NATSConfiguration     `mapstructure:"nats"`
-	S3       S3Configuration       `mapstructure:"s3"`
+}
+
+type CacheConfigurations struct {
+	Redis RedisConfiguration `mapstructure:"redis"`
+}
+
+type QueueConfigurations struct {
+	NATS NATSConfiguration `mapstructure:"nats"`
+}
+
+type StorageConfigurations struct {
+	S3 S3Configuration `mapstructure:"s3"`
+}
+
+type Configuration struct {
+	Server   ServerConfiguration    `mapstructure:"server"`
+	Database DatabaseConfigurations `mapstructure:"database"`
+	Cache    CacheConfigurations    `mapstructure:"cache"`
+	Queue    QueueConfigurations    `mapstructure:"queue"`
+	Storage  StorageConfigurations  `mapstructure:"storage"`
 }
 
 //go:embed default.yaml
