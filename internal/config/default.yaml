@@ -1,42 +1,46 @@
 server:
-  host: "localhost"
+  host: localhost
   port: 8080
   ssl: false
-  env: "dev"
-
-postgres:
-  host: "localhost"
-  port: 5432
-  user:
-    username: "postgres"
-    password: "postgres"
-  database: "drifthook"
-  options: "sslmode=disable"
-  max_open_connection: 15
-  max_idle_connection: 12
-
-yugabyte:
-  host: "localhost"
-  port: 5433
-  user:
-    username: "yugabyte"
-    password: "yugabyte"
-  database: "drifthook"
-  options: "sslmode=disable"
-  max_open_connection: 15
-  max_idle_connection: 15
-
-nats:
-  urls:
-    - "nats://localhost:4222"
-  username: ""
-  password: ""
-
-s3:
-  access_key: ""
-  secret_key: ""
-  bucket: ""
-  path_prefix: ""
-  region: "us-east-1"
-  force_path_style: false
-  disable_ssl: false
+  env: dev
+database:
+  postgres:
+    host: localhost
+    port: 5432
+    user:
+      username: postgres
+      password: postgres
+    database: drifthook
+    options: sslmode=disable
+    max_open_connection: 15
+    max_idle_connection: 12
+  yugabyte:
+    host: localhost
+    port: 5433
+    user:
+      username: yugabyte
+      password: yugabyte
+    database: drifthook
+    options: sslmode=disable
+    max_open_connection: 15
+    max_idle_connection: 15
+cache:
+  redis:
+    url: 'localhost:6379'
+    database: 0
+    password: ''
+queue:
+  nats:
+    urls:
+      - 'nats://localhost:4222'
+    username: ''
+    password: ''
+storage:
+  s3:
+    access_key: ''
+    secret_key: ''
+    bucket: ''
+    path_prefix: ''
+    region: us-east-1
+    force_path_style: false
+    disable_ssl: false
