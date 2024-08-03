@@ -11,6 +11,7 @@ func (oi OrganizationId) String() string {
 type Organization struct {
 	Id        OrganizationId
 	TenantId  TenantId
+	OwnerId   UserId
 	Name      string
 	Version   int64
 	CreatedAt time.Time
