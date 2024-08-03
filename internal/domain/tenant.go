@@ -10,7 +10,7 @@ func (ti TenantId) String() string {
 
 type Tenant struct {
 	Id        TenantId
-	UserId    UserId
+	OwnerId   UserId
 	Domain    string
 	CreatedAt time.Time
 	UpdatedAt time.Time
