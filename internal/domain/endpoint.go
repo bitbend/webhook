@@ -1,6 +1,8 @@
 package domain
 
-import "time"
+import (
+	"time"
+)
 
 type EndpointId string
 
@@ -23,19 +25,27 @@ func (es EndpointStatus) String() string {
 const (
 	EndpointStatusActive   EndpointStatus = "active"
 	EndpointStatusInactive EndpointStatus = "inactive"
-	EndpointStatusPending  EndpointStatus = "pending"
 	EndpointStatusPaused   EndpointStatus = "paused"
 )
 
+type EndpointConfiguration struct {
+	RateLimitCount    int
+	RateLimitDuration time.Duration
+	RetryStrategy     string
+	RetryCount        int
+	RetryDuration     time.Duration
+}
+
 type Endpoint struct {
-	Id          EndpointId
-	TenantId    TenantId
-	ProjectId   ProjectId
-	GroupId     EndpointGroupId
-	Name        string
-	Url         string
-	Description *string
-	Status      EndpointStatus
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	Id            EndpointId
+	TenantId      TenantId
+	ProjectId     ProjectId
+	GroupId       EndpointGroupId
+	Name          string
+	Description   *string
+	Url           string
+	Configuration *EndpointConfiguration
+	Status        EndpointStatus
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
 }
