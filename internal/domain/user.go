@@ -9,10 +9,10 @@ func (ui UserId) String() string {
 }
 
 type User struct {
-	Id        UserId
-	Name      string
-	Email     string
-	Password  string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Id           UserId
+	Name         string
+	Email        string
+	PasswordHash string
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
 }
