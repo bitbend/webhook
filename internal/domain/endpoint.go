@@ -10,12 +10,6 @@ func (ei EndpointId) String() string {
 	return string(ei)
 }
 
-type EndpointGroupId string
-
-func (egi EndpointGroupId) String() string {
-	return string(egi)
-}
-
 type EndpointStatus string
 
 func (es EndpointStatus) String() string {
@@ -40,7 +34,6 @@ type Endpoint struct {
 	Id            EndpointId
 	TenantId      TenantId
 	ProjectId     ProjectId
-	GroupId       EndpointGroupId
 	Name          string
 	Description   *string
 	Url           string

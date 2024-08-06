@@ -21,7 +21,6 @@ type Event struct {
 	Id        EventId
 	TenantId  TenantId
 	StreamId  StreamId
-	GroupId   *EndpointGroupId
 	Data      json.RawMessage
 	CreatedAt time.Time
 	UpdatedAt time.Time
