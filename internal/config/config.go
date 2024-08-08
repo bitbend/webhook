@@ -74,7 +74,7 @@ type CacheConfigurations struct {
 	Redis RedisConfiguration `mapstructure:"redis"`
 }
 
-type QueueConfigurations struct {
+type TaskQueueConfigurations struct {
 	NATS NATSConfiguration `mapstructure:"nats"`
 }
 
@@ -83,11 +83,11 @@ type StorageConfigurations struct {
 }
 
 type Configuration struct {
-	Server   ServerConfiguration    `mapstructure:"server"`
-	Database DatabaseConfigurations `mapstructure:"database"`
-	Cache    CacheConfigurations    `mapstructure:"cache"`
-	Queue    QueueConfigurations    `mapstructure:"queue"`
-	Storage  StorageConfigurations  `mapstructure:"storage"`
+	Server    ServerConfiguration     `mapstructure:"server"`
+	Database  DatabaseConfigurations  `mapstructure:"database"`
+	Cache     CacheConfigurations     `mapstructure:"cache"`
+	TaskQueue TaskQueueConfigurations `mapstructure:"task_queue"`
+	Storage   StorageConfigurations   `mapstructure:"storage"`
 }
 
 //go:embed default.yaml

@@ -29,7 +29,7 @@ cache:
     url: 'localhost:6379'
     database: 0
     password: ''
-queue:
+task_queue:
   nats:
     urls:
       - 'nats://localhost:4222'
