@@ -1,16 +1,15 @@
-package model
+package database
 
 import (
 	"github.com/uptrace/bun"
 	"time"
 )
 
-type User struct {
-	bun.BaseModel `bun:"table:users"`
+type Tenant struct {
+	bun.BaseModel `bun:"table:tenants"`
 	Id            string    `bun:"id,pk"`
 	Name          string    `bun:"name"`
-	Email         string    `bun:"email"`
-	PasswordHash  string    `bun:"password_hash"`
+	Domain        string    `bun:"domain"`
 	CreatedAt     time.Time `bun:"created_at"`
 	UpdatedAt     time.Time `bun:"updated_at"`
 }
