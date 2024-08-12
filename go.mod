@@ -1,4 +1,4 @@
-module github.com/driftbase/drifthook
+module github.com/driftbase/webtrigger
 
 go 1.22.5
 

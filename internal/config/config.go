@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const ConfigurationPrefix = "DRIFTHOOK"
+const ConfigurationPrefix = "WEB_TRIGGER"
 
 type ServerConfiguration struct {
 	Host string `mapstructure:"host"`
