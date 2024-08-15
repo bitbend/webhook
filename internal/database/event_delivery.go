@@ -1,20 +1,18 @@
 package database
 
 import (
-	"github.com/uptrace/bun"
 	"time"
 )
 
 type EventDelivery struct {
-	bun.BaseModel  `bun:"table:event_deliveries"`
-	Id             string    `bun:"id,pk"`
-	TenantId       string    `bun:"tenant_id"`
-	EventId        string    `bun:"event_id"`
-	EndpointId     string    `bun:"endpoint_id"`
-	SubscriptionId string    `bun:"subscription_id"`
-	AttemptedAt    time.Time `bun:"attempted_at"`
-	Url            string    `bun:"url"`
-	StatusCode     int       `bun:"status_code"`
-	Status         string    `bun:"status"`
-	CreatedAt      time.Time `bun:"created_at"`
+	Id             string    `db:"id"`
+	TenantId       string    `db:"tenant_id"`
+	EventId        string    `db:"event_id"`
+	EndpointId     string    `db:"endpoint_id"`
+	SubscriptionId string    `db:"subscription_id"`
+	AttemptedAt    time.Time `db:"attempted_at"`
+	Url            string    `db:"url"`
+	StatusCode     int       `db:"status_code"`
+	Status         string    `db:"status"`
+	CreatedAt      time.Time `db:"created_at"`
 }

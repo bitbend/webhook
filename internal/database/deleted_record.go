@@ -1,16 +1,14 @@
 package database
 
 import (
-	"github.com/uptrace/bun"
 	"time"
 )
 
 type DeletedRecord struct {
-	bun.BaseModel `bun:"table:deleted_records"`
-	Id            string    `bun:"id,pk"`
-	TenantId      *string   `bun:"tenant_id"`
-	TableName     string    `bun:"table_name"`
-	RecordId      string    `bun:"record_id"`
-	Data          []byte    `bun:"data"`
-	DeletedAt     time.Time `bun:"deleted_at"`
+	Id        string    `db:"id"`
+	TenantId  *string   `db:"tenant_id"`
+	TableName string    `db:"table_name"`
+	RecordId  string    `db:"record_id"`
+	Data      []byte    `db:"data"`
+	DeletedAt time.Time `db:"deleted_at"`
 }

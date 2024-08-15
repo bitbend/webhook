@@ -9,53 +9,54 @@ import (
 	"strings"
 )
 
-const ConfigurationPrefix = "WEB_TRIGGER"
+const EnvPrefix = "WEBTRIGGER"
 
-type ServerConfiguration struct {
+type ServerConfig struct {
 	Host string `mapstructure:"host"`
 	Port uint   `mapstructure:"port"`
 	SSL  bool   `mapstructure:"ssl"`
 	Env  string `mapstructure:"env"`
 }
 
-type UserConfiguration struct {
+type UserConfig struct {
 	Username string `mapstructure:"username"`
 	Password string `mapstructure:"password"`
 }
 
-type PostgresConfiguration struct {
-	Host              string            `mapstructure:"host"`
-	Port              uint              `mapstructure:"port"`
-	User              UserConfiguration `mapstructure:"user"`
-	Database          string            `mapstructure:"database"`
-	Options           string            `mapstructure:"options"`
-	MaxOpenConnection uint              `mapstructure:"max_open_connection"`
-	MaxIdleConnection uint              `mapstructure:"max_idle_connection"`
+type PostgresConfig struct {
+	Host              string     `mapstructure:"host"`
+	Port              uint       `mapstructure:"port"`
+	User              UserConfig `mapstructure:"user"`
+	Database          string     `mapstructure:"database"`
+	Options           string     `mapstructure:"options"`
+	MaxOpenConnection uint       `mapstructure:"max_open_connection"`
+	MaxIdleConnection uint       `mapstructure:"max_idle_connection"`
 }
 
-type YugabyteConfiguration struct {
-	Host              string            `mapstructure:"host"`
-	Port              uint              `mapstructure:"port"`
-	User              UserConfiguration `mapstructure:"user"`
-	Database          string            `mapstructure:"database"`
-	Options           string            `mapstructure:"options"`
-	MaxOpenConnection uint              `mapstructure:"max_open_connection"`
-	MaxIdleConnection uint              `mapstructure:"max_idle_connection"`
+type YugabyteConfig struct {
+	Host              string     `mapstructure:"host"`
+	Port              uint       `mapstructure:"port"`
+	User              UserConfig `mapstructure:"user"`
+	Database          string     `mapstructure:"database"`
+	Options           string     `mapstructure:"options"`
+	MaxOpenConnection uint       `mapstructure:"max_open_connection"`
+	MaxIdleConnection uint       `mapstructure:"max_idle_connection"`
 }
 
-type RedisConfiguration struct {
+type RedisConfig struct {
 	Url      string `mapstructure:"url"`
 	Database string `mapstructure:"database"`
 	Password string `mapstructure:"password"`
 }
 
-type NATSConfiguration struct {
+type NATSConfig struct {
 	Urls     []string `mapstructure:"urls"`
 	Username string   `mapstructure:"username"`
 	Password string   `mapstructure:"password"`
 }
 
-type S3Configuration struct {
+type S3Config struct {
+	Endpoint       string `mapstructure:"endpoint"`
 	AccessKey      string `mapstructure:"access_key"`
 	SecretKey      string `mapstructure:"secret_key"`
 	Bucket         string `mapstructure:"bucket"`
@@ -65,44 +66,49 @@ type S3Configuration struct {
 	DisableSSL     bool   `mapstructure:"disable_ssl"`
 }
 
-type DatabaseConfigurations struct {
-	Postgres PostgresConfiguration `mapstructure:"postgres"`
-	Yugabyte YugabyteConfiguration `mapstructure:"yugabyte"`
+type DatabaseConfig struct {
+	Provider string         `mapstructure:"provider"`
+	Postgres PostgresConfig `mapstructure:"postgres"`
+	Yugabyte YugabyteConfig `mapstructure:"yugabyte"`
 }
 
-type CacheConfigurations struct {
-	Redis RedisConfiguration `mapstructure:"redis"`
+type CacheConfig struct {
+	Redis RedisConfig `mapstructure:"redis"`
 }
 
-type TaskQueueConfigurations struct {
-	NATS NATSConfiguration `mapstructure:"nats"`
+type TaskQueueConfig struct {
+	NATS NATSConfig `mapstructure:"nats"`
 }
 
-type StorageConfigurations struct {
-	S3 S3Configuration `mapstructure:"s3"`
+type StorageConfig struct {
+	S3 S3Config `mapstructure:"s3"`
 }
 
-type Configuration struct {
-	Server    ServerConfiguration     `mapstructure:"server"`
-	Database  DatabaseConfigurations  `mapstructure:"database"`
-	Cache     CacheConfigurations     `mapstructure:"cache"`
-	TaskQueue TaskQueueConfigurations `mapstructure:"task_queue"`
-	Storage   StorageConfigurations   `mapstructure:"storage"`
+type Config struct {
+	Server    ServerConfig    `mapstructure:"server"`
+	Database  DatabaseConfig  `mapstructure:"database"`
+	Cache     CacheConfig     `mapstructure:"cache"`
+	TaskQueue TaskQueueConfig `mapstructure:"task_queue"`
+	Storage   StorageConfig   `mapstructure:"storage"`
 }
 
 //go:embed default.yaml
-var defaultConfiguration []byte
+var defaultConfig []byte
 
-func LoadConfig(path string, name string) (*Configuration, error) {
+func NewConfig(path string, name string) *Config {
+	return loadConfig(path, name)
+}
+
+func loadConfig(path string, name string) *Config {
 	viper.SetConfigType("yaml")
 	viper.SetConfigName(name)
 	viper.AddConfigPath(path)
 
 	viper.AutomaticEnv()
-	viper.SetEnvPrefix(ConfigurationPrefix)
+	viper.SetEnvPrefix(EnvPrefix)
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
-	if err := viper.ReadConfig(bytes.NewBuffer(defaultConfiguration)); err != nil {
+	if err := viper.ReadConfig(bytes.NewBuffer(defaultConfig)); err != nil {
 		log.Fatalf("failed to load default config: %v", err)
 	}
 
@@ -115,10 +121,10 @@ func LoadConfig(path string, name string) (*Configuration, error) {
 		}
 	}
 
-	var configuration Configuration
+	var configuration Config
 	if err := viper.Unmarshal(&configuration); err != nil {
 		log.Fatalf("failed to unmarshall configuration: %v", err)
 	}
 
-	return &configuration, nil
+	return &configuration
 }
