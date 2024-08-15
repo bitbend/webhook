@@ -1,20 +1,22 @@
 package database
 
 import (
+	"github.com/uptrace/bun"
 	"time"
 )
 
 type Stream struct {
-	Id             string    `db:"id"`
-	TenantId       string    `db:"tenant_id"`
-	ProjectId      string    `db:"project_id"`
-	EventType      string    `db:"event_type"`
-	Description    *string   `db:"description"`
-	Schema         []byte    `db:"schema"`
-	ForwardHeaders []byte    `db:"forward_headers"`
-	SourceType     string    `db:"source_type"`
-	SourceConfig   []byte    `db:"source_config"`
-	Status         string    `db:"status"`
-	CreatedAt      time.Time `db:"created_at"`
-	UpdatedAt      time.Time `db:"updated_at"`
+	bun.BaseModel  `bun:"table:streams"`
+	Id             string    `bun:"id,pk" db:"id"`
+	TenantId       string    `bun:"tenant_id" db:"tenant_id"`
+	ProjectId      string    `bun:"project_id" db:"project_id"`
+	EventType      string    `bun:"event_type" db:"event_type"`
+	Description    *string   `bun:"description" db:"description"`
+	Schema         []byte    `bun:"schema" db:"schema"`
+	ForwardHeaders []byte    `bun:"forward_headers" db:"forward_headers"`
+	SourceType     string    `bun:"source_type" db:"source_type"`
+	SourceConfig   []byte    `bun:"source_config" db:"source_config"`
+	Status         string    `bun:"status" db:"status"`
+	CreatedAt      time.Time `bun:"created_at" db:"created_at"`
+	UpdatedAt      time.Time `bun:"updated_at" db:"updated_at"`
 }
