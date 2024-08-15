@@ -1,26 +1,24 @@
 package database
 
 import (
-	"github.com/uptrace/bun"
 	"time"
 )
 
 type Project struct {
-	bun.BaseModel      `bun:"table:projects"`
-	Id                 string    `bun:"id,pk"`
-	TenantId           string    `bun:"tenant_id"`
-	OrganizationId     string    `bun:"organization_id"`
-	Name               string    `bun:"name"`
-	Description        *string   `bun:"description"`
-	DisableEndpoints   bool      `bun:"disable_endpoints"`
-	RetentionPolicy    string    `bun:"retention_policy"`
-	AllowedPayloadSize int       `bun:"allowed_payload_size"`
-	RateLimitCount     int       `bun:"rate_limit_count"`
-	RateLimitDuration  int       `bun:"rate_limit_duration"`
-	RetryStrategy      string    `bun:"retry_strategy"`
-	RetryCount         int       `bun:"retry_count"`
-	RetryDuration      int       `bun:"retry_duration"`
-	Status             string    `bun:"status"`
-	CreatedAt          time.Time `bun:"created_at"`
-	UpdatedAt          time.Time `bun:"updated_at"`
+	Id                 string    `db:"id"`
+	TenantId           string    `db:"tenant_id"`
+	OrganizationId     string    `db:"organization_id"`
+	Name               string    `db:"name"`
+	Description        *string   `db:"description"`
+	DisableEndpoints   bool      `db:"disable_endpoints"`
+	RetentionPolicy    string    `db:"retention_policy"`
+	AllowedPayloadSize int       `db:"allowed_payload_size"`
+	RateLimitCount     int       `db:"rate_limit_count"`
+	RateLimitDuration  int       `db:"rate_limit_duration"`
+	RetryStrategy      string    `db:"retry_strategy"`
+	RetryCount         int       `db:"retry_count"`
+	RetryDuration      int       `db:"retry_duration"`
+	Status             string    `db:"status"`
+	CreatedAt          time.Time `db:"created_at"`
+	UpdatedAt          time.Time `db:"updated_at"`
 }

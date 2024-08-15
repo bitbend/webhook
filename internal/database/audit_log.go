@@ -1,15 +1,13 @@
 package database
 
 import (
-	"github.com/uptrace/bun"
 	"time"
 )
 
 type AuditLog struct {
-	bun.BaseModel `bun:"table:audit_logs"`
-	Id            string    `bun:"id,pk"`
-	TenantId      *string   `bun:"tenant_id"`
-	Name          string    `bun:"name"`
-	Data          []byte    `bun:"data"`
-	CreatedAt     time.Time `bun:"created_at"`
+	Id        string    `db:"id"`
+	TenantId  *string   `db:"tenant_id"`
+	Name      string    `db:"name"`
+	Data      []byte    `db:"data"`
+	CreatedAt time.Time `db:"created_at"`
 }
