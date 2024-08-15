@@ -23,7 +23,7 @@ database:
     database: drifthook
     options: sslmode=disable
     max_open_connection: 15
-    max_idle_connection: 15
+    max_idle_connection: 12
 cache:
   redis:
     url: 'localhost:6379'
