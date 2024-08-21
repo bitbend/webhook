@@ -1,5 +1,5 @@
-# WebTrigger
+# DriftBase Webhook
 
-Looking for easy to use webhook infrastructure look no further than WebTrigger
+Looking for easy to use webhook infrastructure look no further than DriftBase Webhook
 
 Built With 💖 by DriftBase

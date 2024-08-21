@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const EnvPrefix = "WEBTRIGGER"
+const EnvPrefix = "DRIFTBASE_WEBHOOK"
 
 type ServerConfig struct {
 	Host string `mapstructure:"host"`
