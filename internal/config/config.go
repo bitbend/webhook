@@ -24,23 +24,23 @@ type UserConfig struct {
 }
 
 type PostgresConfig struct {
-	Host              string     `mapstructure:"host"`
-	Port              uint       `mapstructure:"port"`
-	User              UserConfig `mapstructure:"user"`
-	Database          string     `mapstructure:"database"`
-	Options           string     `mapstructure:"options"`
-	MaxOpenConnection uint       `mapstructure:"max_open_connection"`
-	MaxIdleConnection uint       `mapstructure:"max_idle_connection"`
+	Host               string     `mapstructure:"host"`
+	Port               uint       `mapstructure:"port"`
+	User               UserConfig `mapstructure:"user"`
+	Database           string     `mapstructure:"database"`
+	Options            string     `mapstructure:"options"`
+	MaxOpenConnections uint       `mapstructure:"max_open_connections"`
+	MaxIdleConnections uint       `mapstructure:"max_idle_connections"`
 }
 
 type YugabyteConfig struct {
-	Host              string     `mapstructure:"host"`
-	Port              uint       `mapstructure:"port"`
-	User              UserConfig `mapstructure:"user"`
-	Database          string     `mapstructure:"database"`
-	Options           string     `mapstructure:"options"`
-	MaxOpenConnection uint       `mapstructure:"max_open_connection"`
-	MaxIdleConnection uint       `mapstructure:"max_idle_connection"`
+	Host               string     `mapstructure:"host"`
+	Port               uint       `mapstructure:"port"`
+	User               UserConfig `mapstructure:"user"`
+	Database           string     `mapstructure:"database"`
+	Options            string     `mapstructure:"options"`
+	MaxOpenConnections uint       `mapstructure:"max_open_connections"`
+	MaxIdleConnections uint       `mapstructure:"max_idle_connections"`
 }
 
 type RedisConfig struct {
