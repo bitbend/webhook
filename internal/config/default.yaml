@@ -4,6 +4,7 @@ server:
   ssl: false
   env: dev
 database:
+  provider: postgres
   postgres:
     host: localhost
     port: 5432
