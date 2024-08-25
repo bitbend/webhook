@@ -4,8 +4,9 @@ import (
 	"bytes"
 	_ "embed"
 	"errors"
+	"fmt"
 	"github.com/spf13/viper"
-	"log"
+	"go.uber.org/zap"
 	"strings"
 )
 
@@ -109,21 +110,21 @@ func loadConfig(path string, name string) *Config {
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	if err := viper.ReadConfig(bytes.NewBuffer(defaultConfig)); err != nil {
-		log.Fatalf("failed to load default config: %v", err)
+		zap.L().Panic("failed to load default config", zap.Error(err))
 	}
 
 	if err := viper.MergeInConfig(); err != nil {
 		var configFileNotFoundError viper.ConfigFileNotFoundError
 		if errors.As(err, &configFileNotFoundError) {
-			log.Printf("%s.yaml config file not found at %s", name, path)
+			zap.L().Info(fmt.Sprintf("%s.yaml config file not found at %s", name, path), zap.Error(err))
 		} else {
-			log.Fatalf("failed to merge config: %v", err)
+			zap.L().Panic("failed to merge config", zap.Error(err))
 		}
 	}
 
 	var configuration Config
 	if err := viper.Unmarshal(&configuration); err != nil {
-		log.Fatalf("failed to unmarshall configuration: %v", err)
+		zap.L().Panic("failed to unmarshall configuration", zap.Error(err))
 	}
 
 	return &configuration
