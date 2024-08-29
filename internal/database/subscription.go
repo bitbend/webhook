@@ -14,6 +14,7 @@ type Subscription struct {
 	RetryStrategy     string    `db:"retry_strategy"`
 	RetryCount        int       `db:"retry_count"`
 	RetryDuration     int       `db:"retry_duration"`
+	Status            string    `db:"status"`
 	CreatedAt         time.Time `db:"created_at"`
 	UpdatedAt         time.Time `db:"updated_at"`
 }
