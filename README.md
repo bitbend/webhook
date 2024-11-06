@@ -2,4 +2,4 @@
 
 Looking for easy to use webhook infrastructure look no further than DriftBase Webhook
 
-Built With 💖 by DriftBase
+Built With 💖 by BitBend
