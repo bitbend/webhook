@@ -1,4 +1,4 @@
-module github.com/driftbase/webhook
+module github.com/bitbend/webhook
 
 go 1.22.5
 

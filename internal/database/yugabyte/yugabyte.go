@@ -3,7 +3,7 @@ package yugabyte
 import (
 	"context"
 	"fmt"
-	"github.com/driftbase/webhook/internal/config"
+	"github.com/bitbend/webhook/internal/config"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/zap"
 )

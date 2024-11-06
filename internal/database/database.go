@@ -3,9 +3,9 @@ package database
 import (
 	"context"
 	"fmt"
-	"github.com/driftbase/webhook/internal/config"
-	"github.com/driftbase/webhook/internal/database/postgres"
-	"github.com/driftbase/webhook/internal/database/yugabyte"
+	"github.com/bitbend/webhook/internal/config"
+	"github.com/bitbend/webhook/internal/database/postgres"
+	"github.com/bitbend/webhook/internal/database/yugabyte"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/zap"
